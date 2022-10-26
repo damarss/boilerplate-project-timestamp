@@ -26,10 +26,14 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/:date", (req, res) => {
   let date = req.params.date;
-  if (date.includes("-")) {
-    date = new Date(date);
+  if (date) {
+    if (date.includes("-")) {
+      date = new Date(date);
+    } else {
+      date = new Date(parseInt(date));
+    }
   } else {
-    date = new Date(parseInt(date));
+    date = new Date();
   }
   if (date == "Invalid Date") {
     res.json({ error: "Invalid Date" });
